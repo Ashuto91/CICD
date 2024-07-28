@@ -1,4 +1,5 @@
 echo 'Deploying App on Kubernetes'
+sudo su -s /bin/bash jenkins
 envsubst < k8s/petclinic_chart/values-template.yaml > k8s/petclinic_chart/values.yaml
 sed -i s/HELM_VERSION/${BUILD_NUMBER}/ k8s/petclinic_chart/Chart.yaml
 AWS_REGION=$AWS_REGION helm repo add stable-petclinic s3://microservices-app-helm-charts-ashuto91/stable/myapp/ || echo "repository name already exists"
