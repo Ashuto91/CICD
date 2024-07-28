@@ -13,10 +13,15 @@
 # AWS_REGION=$AWS_REGION helm upgrade --install petclinic-app-release stable-petclinic/petclinic_chart --version ${BUILD_NUMBER} --namespace petclinic-prod-ns
 
 
+#!/bin/bash
+
 echo 'Deploying App on Kubernetes'
 
 # Switch to the jenkins user and run the necessary commands
 sudo su -s /bin/bash jenkins << 'EOF'
+# Ensure the PATH includes the directories where helm and kubectl are located
+export PATH=$PATH:/usr/local/bin:/usr/bin:/bin
+
 # Replace environment variables in values-template.yaml
 envsubst < k8s/petclinic_chart/values-template.yaml > k8s/petclinic_chart/values.yaml
 
@@ -48,3 +53,4 @@ AWS_REGION=$AWS_REGION helm repo update
 # Upgrade or install the Helm release
 AWS_REGION=$AWS_REGION helm upgrade --install petclinic-app-release stable-petclinic/petclinic_chart --version ${BUILD_NUMBER} --namespace petclinic-prod-ns
 EOF
+
