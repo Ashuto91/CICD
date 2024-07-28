@@ -56,7 +56,7 @@ pipeline {
         stage('Deploy Microservices Vet Clinic App on Amazon EKS Kubernetes Cluster'){
             steps {
                 echo 'Deploying App on K8s Cluster'
-                sh "sudo su -s /bin/bash jenkins"
+                // sh "sudo su -s /bin/bash jenkins"
                 sh ". ./jenkins/deploy_app_on_prod_environment.sh"
             }
         }
